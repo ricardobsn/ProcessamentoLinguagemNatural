@@ -8,6 +8,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 from nltk.corpus import state_union
 from nltk.tokenize import PunktSentenceTokenizer
 
@@ -46,7 +47,7 @@ def process_content():
             # Faz o "chunking das palavras"
             chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP><NN>?}"""
             chunkParser = nltk.RegexpParser(chunkGram)
-            chunked = chunkParser.parse(tagged)
+            chunked = chunkParser.parse(tagged, binary=True)
             
             print(chunked)
     
@@ -55,8 +56,11 @@ def process_content():
 
 process_content()
 
+# lematizacao
+lemmatizer = WordNetLemmatizer()
 ps = PorterStemmer()
 for w in filtered_sentence:
    print(ps.stem(w))
+   print(lemmatizer.lemmatize(w))
 
         
